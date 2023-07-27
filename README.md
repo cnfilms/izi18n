@@ -1,5 +1,5 @@
 # izi18n
-`Simple python library for language internalization`
+`Simple python library for language Internationalisation`
 
 * Support
     * `JSON`
@@ -81,7 +81,7 @@ print(get_locale())
 
 print(translate("Dimanche"))
 print(gettext("Lundi"))
-print(_("Visit {url}"))
+print(_("Visit ${url}", url="https://github.com/cnfilms/izi18n"))
 ```
 
 * `Add or edit translation`

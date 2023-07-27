@@ -58,7 +58,7 @@ class I18n(object):
         with open(self._translations_file, 'w') as file:
             json.dump(self._translations, file, ensure_ascii=False, indent=2)
 
-    def translate(self, pattern, default_text="", **kwargs):
+    def translate(self, pattern, default_text=None, **kwargs):
         """
         Translate value by pattern or key.
         It possible to set default text And parse **kwargs
@@ -70,6 +70,9 @@ class I18n(object):
 
         if len(kwargs) > 0 and _text:
             _text = str(_text).format(**kwargs)
+
+        if not default_text:
+            default_text = pattern
 
         return _text if _text else default_text
 

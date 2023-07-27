@@ -5,7 +5,7 @@ setuptools.setup(
     version="1.0.0",
     author="Joel ONIPOH",
     author_email="technique@cinego.net",
-    description="Python internalization",
+    description="Python Internationalisation",
     packages=setuptools.find_packages(),
     install_requires=[r.strip() for r in open('requirements.txt').read().splitlines()],
     include_package_data=True,

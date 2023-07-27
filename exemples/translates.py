@@ -24,5 +24,7 @@ print("Current local:", get_locale(), "\n")
 print(translate("Dimanche"))
 print(gettext("Lundi"))
 print(_("Enter a comma separated list of user names."))
-print(_("Visit {url}", url="https://github.com/cnfilms/izi18n"))
+print(_("Visit ${url}", url="https://github.com/cnfilms/izi18n"))
 print("-" * 50)
+
+print(translate("blabla"))

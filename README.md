@@ -1,6 +1,11 @@
 # izi18n
 `Simple python library for language Internationalisation`
 
+# Install 
+```shell
+pip install izi18n
+```
+
 * Support
     * `JSON`
     * `.PO FILES`

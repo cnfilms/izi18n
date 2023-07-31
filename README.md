@@ -1,4 +1,4 @@
-# izi18n
+# izi18n [![Downloads](https://static.pepy.tech/personalized-badge/izi18n?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/izi18n)
 `Simple python library for language Internationalisation`
 
 # Install 

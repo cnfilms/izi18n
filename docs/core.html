@@ -55,7 +55,7 @@
 <div class="desc"><p>Get current locale language</p></div>
 </dd>
 <dt id="izi18n.core.gettext"><code class="name flex">
-<span>def <span class="ident">gettext</span></span>(<span>pattern, default_text='', **kwargs)</span>
+<span>def <span class="ident">gettext</span></span>(<span>*args, **kwargs)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Translate by pattern or key or text.
@@ -86,14 +86,14 @@ Support default_text if not find and support **kwargs to format translation</p><
 <div class="desc"><p>Change the translation directory</p></div>
 </dd>
 <dt id="izi18n.core.translate"><code class="name flex">
-<span>def <span class="ident">translate</span></span>(<span>pattern, default_text='', **kwargs)</span>
+<span>def <span class="ident">translate</span></span>(<span>*args, **kwargs)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Translate by pattern or key or text.
 Support default_text if not find and support **kwargs to format translation</p></div>
 </dd>
 <dt id="izi18n.core.translate_by_lang"><code class="name flex">
-<span>def <span class="ident">translate_by_lang</span></span>(<span>lang, pattern, default_text='', **kwargs)</span>
+<span>def <span class="ident">translate_by_lang</span></span>(<span>lang, *args, **kwargs)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Translate by language avoid change the locale language</p></div>

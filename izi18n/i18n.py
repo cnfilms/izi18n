@@ -18,6 +18,7 @@ class I18n(object):
         if self.language and self._translations_path:
             self.set_translations_path(translations_path)
             self.set_language(self.language)
+        self.local_name = self.language
 
     def set_translations_path(self, translations_path):
         """
@@ -32,23 +33,25 @@ class I18n(object):
         """
         try:
             with open(self._translations_file, 'r') as file:
-                return json.load(file)
+                self._translations = json.load(file)
         except FileNotFoundError:
-            return {}
+            self._translations = {}
 
     def load_translations_from_po_file(self, po_filename, language, stream=True):
         """
         Load translation from .po file
         """
-        self.set_language(language)
         json_po = po_to_json(po_filename)
+        if not json_po:
+            return
+
         self._po[language] = {**self._po.get(language, {}), **json_po}
         if not are_dicts_equal(self._translations, json_po):
             merged_data = {**self._translations, **self._po.get(language, {})}
             self._translations = merged_data
             if not stream:
                 self._save_translations()
-                self._translations = self.load_translations()
+                self.load_translations()
 
     def _save_translations(self):
         """
@@ -58,15 +61,25 @@ class I18n(object):
         with open(self._translations_file, 'w') as file:
             json.dump(self._translations, file, ensure_ascii=False, indent=2)
 
-    def translate(self, pattern, default_text=None, **kwargs):
+    def pluralize(self, *args, **kwargs):
+        return self.translate(*args, **kwargs)
+
+    def translate(self, *args, **kwargs):
+        result = ""
+        for item in args:
+            result += self._translate(pattern=item, **kwargs) + " "
+        return result.rstrip()
+
+    def _translate(self, pattern, **kwargs):
         """
         Translate value by pattern or key.
         It possible to set default text And parse **kwargs
         """
+        default_text = kwargs.get('default_text')
         _text = self._get(pattern)
 
         if not _text:
-            _text = self._translations.get(pattern)
+            _text = self._translations.get(pattern, default_text)
 
         if len(kwargs) > 0 and _text:
             _text = str(_text).format(**kwargs)
@@ -82,7 +95,10 @@ class I18n(object):
         """
         self.language = extract_language(language)
         self._translations_file = os.path.join(self._translations_path, self.language + '.json')
-        self._translations = self.load_translations()
+        self.load_translations()
+        merged_data = {**self._translations, **self._po.get(language, {})}
+        self._translations = merged_data
+        self.local_name = self.language
 
     def add_translation(self, pattern, value):
         """

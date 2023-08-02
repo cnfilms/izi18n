@@ -59,21 +59,21 @@ def get_locale():
     return _i18n.language
 
 
-def translate(pattern, default_text="", **kwargs):
+def translate(*args, **kwargs):
     """
     Translate by pattern or key or text.
     Support default_text if not find and support **kwargs to format translation
     """
-    return _i18n.translate(pattern, default_text, **kwargs)
+    return _i18n.pluralize(*args, **kwargs)
 
 
-def translate_by_lang(lang, pattern, default_text="", **kwargs):
+def translate_by_lang(lang, *args, **kwargs):
     """
     Translate by language avoid change the locale language
     """
     _lang = _i18n.language
     _i18n.set_language(lang)
-    _text = _i18n.translate(pattern, default_text, **kwargs)
+    _text = translate(*args, **kwargs)
     _i18n.set_language(_lang)
     return _text
 
@@ -89,17 +89,17 @@ def load_po_file(po_filenames: any, language, stream=True):
         _i18n.load_translations_from_po_file(po_filenames, language, stream)
 
 
-def _(pattern, default_text="", **kwargs):
+def _(*args, **kwargs):
     """
     Translate by pattern or key or text.
     Support default_text if not find and support **kwargs to format translation
     """
-    return translate(pattern, default_text, **kwargs)
+    return translate(*args, **kwargs)
 
 
-def gettext(pattern, default_text="", **kwargs):
+def gettext(*args, **kwargs):
     """
     Translate by pattern or key or text.
     Support default_text if not find and support **kwargs to format translation
     """
-    return translate(pattern, default_text, **kwargs)
+    return translate(*args, **kwargs)

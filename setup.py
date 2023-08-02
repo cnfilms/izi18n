@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="izi18n",
-    version="1.0.0",
+    version="1.0.1",
     author="Joel ONIPOH",
     author_email="technique@cinego.net",
     description="Simple python library for language Internationalisation",

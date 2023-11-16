@@ -76,10 +76,10 @@ class I18n(object):
         It possible to set default text And parse **kwargs
         """
         default_text = kwargs.get('default_text')
-        _text = self._get(pattern)
+        _text = self._translations.get(pattern, default_text)
 
         if not _text:
-            _text = self._translations.get(pattern, default_text)
+            _text = self._get(pattern)
 
         if len(kwargs) > 0 and _text:
             _text = str(_text).format(**kwargs)
@@ -112,12 +112,22 @@ class I18n(object):
     def _get(self, pattern):
         try:
             # Split the pattern into keys
-            keys = pattern.split('.')
+            keys = [_t for _t in pattern.split('.') if _t]
 
             # Traverse the dictionary using the keys to extract the nested object
-            result = self._translations
+            result = ""
             for key in keys:
-                result = result[key]
+                temp = self._translations.get(key)
+
+                if not temp:
+                    temp = self._translations.get(str(key).lstrip())
+                if not temp:
+                    temp = self._translations.get(key + ".")
+                if not temp:
+                    temp = self._translations.get(str(key).lstrip() + ".")
+
+                if temp:
+                    result += temp + " "
 
             return result
         except (json.JSONDecodeError, KeyError, TypeError):
